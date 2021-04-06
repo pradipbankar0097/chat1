@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
-
+using System.Net;
 
 namespace chat1
 {
@@ -18,7 +18,13 @@ namespace chat1
         MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;database=temp");
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           /* 
+            string hostName = Dns.GetHostName(); // Retrive the Name of HOST  
+            Console.WriteLine(hostName);
+            // Get the IP  
+            string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+            ip.Text = myIP;
+           */
         }
 
         protected void username_TextChanged(object sender, EventArgs e)
@@ -39,14 +45,32 @@ namespace chat1
             con.Open();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from students where 'uname'='"+username.Text.ToString()+"'";
+            cmd.CommandText = "select * from students";
             MySqlDataReader reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
-                
+                if(reader["uname"].ToString() == username.Text)
+                {
+                    if (reader["password"].ToString() == password.Text)
+                    {
+                        Session["user"] = reader["fname"].ToString() +" "+ reader["lname"].ToString();
+                        Response.Redirect("~\\Chat.aspx");
+                    }
+                    else
+                    {
+                        ip.Text = "Invalid credentials";
+                    }
+                }
+                else
+                {
+                    ip.Text = "Invalid credentials";
+                }
+
+
             }
-            Session["user"] = username.Text;
-            Response.Redirect("~\\Chat.aspx");
+            reader.Close();
+            con.Close();
         }
     }
 }
