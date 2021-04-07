@@ -10,7 +10,10 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Net;
-
+/*
+ this is comment.
+ 
+ */
 namespace chat1
 {
     public partial class Login : System.Web.UI.Page
