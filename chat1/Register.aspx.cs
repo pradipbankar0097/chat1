@@ -31,7 +31,7 @@ namespace chat1
             con.Close();
             Session["user"] = fname.Text;
 
-            Response.Redirect("~\\chat.aspx");
+            Response.Redirect("~\\Login.aspx");
         }
     }
 }
