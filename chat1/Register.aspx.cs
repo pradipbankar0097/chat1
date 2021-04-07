@@ -29,8 +29,7 @@ namespace chat1
             cmd.ExecuteNonQuery();
 
             con.Close();
-            Session["user"] = fname.Text;
-
+            
             Response.Redirect("~\\Login.aspx");
         }
     }
