@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Net;
 /*
  this is comment.
+this is comment 2.
  
  */
 namespace chat1
